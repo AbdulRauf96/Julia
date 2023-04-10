@@ -254,3 +254,43 @@ println(names(df_books))
 
 # Find number of rows and columns
 println(size(df_books))
+
+# Julia is a 1-indexed language so the first row is row 1
+
+# Print the first 5 rows of the title column
+println(first(df_books[:, 1], 5))
+
+# In Julia to slice up to a certain index you use the colon operator using the syntax start:stop
+
+# Print the first 5 rows of the title column
+println(df_books[1:5, 1])
+
+# Descriptive Statistics
+
+# Find the total number of ratings
+total_reviews = sum(df_books[:,"ratings_count"])
+
+println("Total number of reviews is $total_reviews")
+
+# Summarize the DataFrame
+println(describe(df_patients))	
+
+# Find the mean heart rate
+mean_hr = mean(df_patients.heartrate)
+
+# Find the standard deviation of heart rates
+std_hr = std(df_patients.heartrate)
+
+# Calculate the normalized array of heart rates
+norm_heartrate = (df_patients.heartrate .- mean_hr) ./ std_hr
+
+# Add the normalized heartrate to the DataFrame
+df_patients[!, "norm_heartrate"] = norm_heartrate
+
+println(last(df_patients, 5))
+
+# Filtering Data in Julia
+
+# Filter to where the sex is female
+df_female = filter(row -> row.sex == "female", df_patients)
+
